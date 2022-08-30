@@ -9760,7 +9760,7 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
                                 ]
                               : <Widget>[
                                   Flexible(
-                                      child: Text((headerString.split(' ').first),
+                                      child: Text(headerString.split(' ').first +'\n'+headerString.split(' ').last,
                                           style: headerTextStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.clip,
