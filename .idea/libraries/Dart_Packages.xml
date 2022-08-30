@@ -33,8 +33,8 @@
         <entry key="clock">
           <value>
             <list>
-              <option value="$USER_HOME$/My Work/flutter/flutter_windows_3.0.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
               <option value="$USER_HOME$/My Work/flutter/flutter_windows_3.0.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.1/lib" />
+              <option value="$USER_HOME$/My Work/flutter/flutter_windows_3.0.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
             </list>
           </value>
         </entry>
@@ -104,8 +104,8 @@
         <entry key="path">
           <value>
             <list>
-              <option value="$USER_HOME$/My Work/flutter/flutter_windows_3.0.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/lib" />
               <option value="$USER_HOME$/My Work/flutter/flutter_windows_3.0.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.2/lib" />
+              <option value="$USER_HOME$/My Work/flutter/flutter_windows_3.0.5-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/lib" />
             </list>
           </value>
         </entry>
