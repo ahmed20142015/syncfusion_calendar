@@ -9695,8 +9695,9 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
             : null;
     final TextStyle headerTextStyle =
         widget.headerStyle.textStyle ?? widget.calendarTheme.headerTextStyle!;
-    final Widget headerText = widget.isMobilePlatform
-        ? Container(
+    final Widget headerText;
+    if (widget.isMobilePlatform) {
+      headerText = Container(
             alignment: Alignment.center,
             color: headerBackgroundColor,
             width: isCenterAlignment && headerWidth > 200 ? 200 : headerWidth,
@@ -9760,7 +9761,7 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
                                 ]
                               : <Widget>[
                                   Flexible(
-                                      child: Text(headerString.split(' ').first +'\n'+headerString.split(' ').last,
+                                      child: Text('${headerString.split(' ').first}\n${headerString.split(' ').last}',
                                           style: headerTextStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.clip,
@@ -9768,8 +9769,9 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
                                           textDirection: TextDirection.ltr))
                                 ])),
                 )),
-          )
-        : Container(
+          );
+    } else {
+      headerText = Container(
             alignment: _getHeaderAlignment(),
             color: headerBackgroundColor,
             width: isCenterAlignment && headerWidth > 200 ? 200 : headerWidth,
@@ -9835,7 +9837,7 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
                               ]
                             : <Widget>[
                                 Flexible(
-                                    child: Text(headerString,
+                                    child: Text('headerString',
                                         style: headerTextStyle,
                                         maxLines: 1,
                                         overflow: TextOverflow.clip,
@@ -9845,6 +9847,7 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
                       )),
                 )),
           );
+    }
 
     final Widget weekNumberWidget = weekNumberEnabled
         ? Container(
