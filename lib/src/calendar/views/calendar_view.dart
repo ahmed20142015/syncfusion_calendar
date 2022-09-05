@@ -8394,35 +8394,7 @@ class _CalendarViewState extends State<_CalendarView>
           child: Container(
             color: widget.calendar.viewHeaderStyle.backgroundColor ??
                 widget.calendarTheme.viewHeaderBackgroundColor,
-            child: RepaintBoundary(
-              child: CustomPaint(
-                painter: _ViewHeaderViewPainter(
-                    widget.visibleDates,
-                    widget.view,
-                    widget.calendar.viewHeaderStyle,
-                    widget.calendar.timeSlotViewSettings,
-                    CalendarViewHelper.getTimeLabelWidth(
-                        widget.calendar.timeSlotViewSettings.timeRulerSize,
-                        widget.view),
-                    actualViewHeaderHeight,
-                    widget.calendar.monthViewSettings,
-                    isRTL,
-                    widget.locale,
-                    widget.calendarTheme,
-                    widget.calendar.todayHighlightColor ??
-                        widget.calendarTheme.todayHighlightColor,
-                    widget.calendar.todayTextStyle,
-                    widget.calendar.cellBorderColor,
-                    widget.calendar.minDate,
-                    widget.calendar.maxDate,
-                    _viewHeaderNotifier,
-                    widget.textScaleFactor,
-                    widget.calendar.showWeekNumber,
-                    widget.isMobilePlatform,
-                    widget.calendar.weekNumberStyle,
-                    widget.localizations),
-              ),
-            ),
+
           ),
         ),
         Positioned(

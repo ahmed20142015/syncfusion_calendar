@@ -8511,6 +8511,7 @@ class _SfCalendarState extends State<SfCalendar>
                 widget.cellBorderColor,
                 widget.timeSlotViewSettings.numberOfDaysInView)),
       ),
+
       _addResourcePanel(isResourceEnabled, resourceViewSize, height, isRTL),
       _addCustomScrollView(widget.headerHeight, resourceViewSize, isRTL,
           isResourceEnabled, width, height, agendaHeight),
@@ -9695,7 +9696,159 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
             : null;
     final TextStyle headerTextStyle =
         widget.headerStyle.textStyle ?? widget.calendarTheme.headerTextStyle!;
-    final Widget headerText = Container();
+    final Widget headerText;
+    if (widget.isMobilePlatform) {
+      headerText = Container(
+            alignment: Alignment.center,
+            color: headerBackgroundColor,
+            width: isCenterAlignment && headerWidth > 200 ? 200 : headerWidth,
+            height: headerHeight,
+            padding: const EdgeInsets.all(2),
+            child: Material(
+                color: headerBackgroundColor,
+                child: InkWell(
+                  //// set splash color as transparent when header does not have
+                  // date piker.
+                  splashColor: splashColor,
+                  highlightColor: splashColor,
+                  hoverColor: splashColor,
+                  splashFactory: _CustomSplashFactory(),
+                  onTap: () {
+                    if (!widget.enableInteraction) {
+                      return;
+                    }
+                    widget.headerTapCallback(
+                        calendarViewWidth + dividerWidth + todayIconWidth);
+                  },
+                  onLongPress: () {
+                    if (!widget.enableInteraction) {
+                      return;
+                    }
+                    widget.headerLongPressCallback(
+                        calendarViewWidth + dividerWidth + todayIconWidth);
+                  },
+                  child: Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      width: isCenterAlignment && headerWidth > 200
+                          ? 200
+                          : headerWidth,
+                      height: headerHeight,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Row(
+                          mainAxisAlignment: _getAlignmentFromTextAlign(),
+                          children: widget.showDatePickerButton
+                              ? <Widget>[
+                                  Flexible(
+                                      child: Text(headerString,
+                                          style: headerTextStyle,
+                                          maxLines: 1,
+                                          semanticsLabel:
+                                              // ignore: lines_longer_than_80_chars
+                                              '$headerString ${widget.isPickerShown ? 'hide date picker' : 'show date picker'}',
+                                          overflow: TextOverflow.clip,
+                                          softWrap: false,
+                                          textDirection: TextDirection.ltr)),
+                                  Icon(
+                                    widget.isPickerShown
+                                        ? Icons.arrow_drop_up
+                                        : Icons.arrow_drop_down,
+                                    color: arrowColor,
+                                    size: headerTextStyle.fontSize ?? 14,
+                                  ),
+                                ]
+                              : <Widget>[
+                                  Flexible(
+                                      child: Text(headerString,
+                                          style: headerTextStyle,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.clip,
+                                          softWrap: false,
+                                          textDirection: TextDirection.ltr))
+                                ])),
+                )),
+          );
+    } else {
+      headerText = Container(
+            alignment: _getHeaderAlignment(),
+            color: headerBackgroundColor,
+            width: isCenterAlignment && headerWidth > 200 ? 200 : headerWidth,
+            height: headerHeight,
+            padding: const EdgeInsets.all(2),
+            child: Material(
+                color: headerBackgroundColor,
+                child: InkWell(
+                  //// set splash color as transparent when header does not have
+                  // date piker.
+                  splashColor: splashColor,
+                  highlightColor: splashColor,
+                  splashFactory: _CustomSplashFactory(),
+                  onTap: () {
+                    if (!widget.enableInteraction) {
+                      return;
+                    }
+                    widget.headerTapCallback(
+                        calendarViewWidth + dividerWidth + todayIconWidth);
+                  },
+                  onLongPress: () {
+                    if (!widget.enableInteraction) {
+                      return;
+                    }
+                    widget.headerLongPressCallback(
+                        calendarViewWidth + dividerWidth + todayIconWidth);
+                  },
+                  child: Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        color:
+                            widget.showDatePickerButton && widget.isPickerShown
+                                ? Colors.grey.withOpacity(0.3)
+                                : headerBackgroundColor,
+                      ),
+                      width: isCenterAlignment && headerTextWidth > 200
+                          ? 200
+                          : headerTextWidth,
+                      height: headerHeight,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: widget.showDatePickerButton
+                            ? <Widget>[
+                                Flexible(
+                                    child: Text(headerString,
+                                        style: headerTextStyle,
+                                        maxLines: 1,
+                                        semanticsLabel:
+                                            // ignore: lines_longer_than_80_chars
+                                            '$headerString ${widget.isPickerShown ? 'hide date picker' : 'show date picker'}',
+                                        overflow: TextOverflow.clip,
+                                        softWrap: false,
+                                        textDirection: TextDirection.ltr)),
+                                Icon(
+                                  widget.isPickerShown
+                                      ? Icons.arrow_drop_up
+                                      : Icons.arrow_drop_down,
+                                  color: arrowColor,
+                                  size: headerTextStyle.fontSize ?? 14,
+                                ),
+                              ]
+                            : <Widget>[
+                                Flexible(
+                                    child: Text('headerString',
+                                        style: headerTextStyle,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.clip,
+                                        softWrap: false,
+                                        textDirection: TextDirection.ltr)),
+                              ],
+                      )),
+                )),
+          );
+    }
 
     final Widget weekNumberWidget = weekNumberEnabled
         ? Container(
@@ -9906,12 +10059,12 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
         widget.headerStyle.textAlign == TextAlign.start) {
       if (widget.isMobilePlatform) {
         rowChildren = <Widget>[
-          headerText,
-          weekNumberWidget,
-          todayIcon,
-          calendarViewIcon,
-          leftArrow,
-          rightArrow,
+         // headerText,
+         // weekNumberWidget,
+         // todayIcon,
+         //  calendarViewIcon,
+         //  leftArrow,
+         //  rightArrow,
         ];
       } else {
         rowChildren = <Widget>[
@@ -9979,7 +10132,6 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
             ? rowChildren.add(calendarViewIcon)
             : rowChildren.addAll(children);
       }
-
       return Row(
           mainAxisAlignment: MainAxisAlignment.center, children: rowChildren);
     }

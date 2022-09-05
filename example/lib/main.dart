@@ -27,8 +27,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
         body: SfCalendar(
-      view: CalendarView.month,
+      view: CalendarView.schedule,
+      showNavigationArrow: false,
+      showWeekNumber: false,
+      showDatePickerButton: false,
+      headerDateFormat: 'yy MMM',
       dataSource: MeetingDataSource(_getDataSource()),
       // by default the month appointment display mode set as Indicator, we can
       // change the display mode as appointment using the appointment display
