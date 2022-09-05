@@ -1,0 +1,4 @@
+#Mon Sep 05 21:16:18 EET 2022
+base.0=C\:\\Users\\user\\Downloads\\syncfusion_flutter_calendar-20.2.45\\example\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
